@@ -1,0 +1,8 @@
+asgiref==3.8.1
+Django==5.2
+django-admin-autocomplete-filter==0.7.1
+django-cors-headers==4.7.0
+django-filter==25.1
+pillow==11.2.1
+qrcode==8.0
+sqlparse==0.5.3
