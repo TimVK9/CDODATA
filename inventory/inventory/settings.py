@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'data',
     'django_filters',
     'corsheaders',
+    'import_export',
+    
     
 ]
 
