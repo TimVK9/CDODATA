@@ -50,6 +50,7 @@
                 <th>Подразделение</th>
                 <th>Кабинет расположения</th>
                 <th>Ответсвенный за содержание</th>
+                <th>Состояние</th>
                 <th>QR Code</th>
                 <th>Детали</th>
             </tr>
@@ -57,12 +58,13 @@
         <tbody>
             {% for item in inventory_items %}
                 <tr>
-                    <td>{{ item.name }}</td>
+                    <td>{{ item.objects_name }}</td>
                     <td>{{ item.inventory_number }}</td>
                     <td>{{ item.value }}</td>
                     <td>{{ item.base }}</td>
                     <td>{{ item.office }}</td>
-                    <td>{{ item.user_name }}</td>
+                    <td>{{ item.accountable_user }}</td>
+                    <td>{{ item.state}} - {{item.start_data }}</td>
                     <td>
                         {% if item.qrcode %}
                         <a href="{{ item.qrcode.qr.url }}" type="button" class="btn btn-success" download="{{ item.inventory_number }}_qrcode.png">Скачать</a>

@@ -4,12 +4,15 @@ from import_export.admin import ImportExportModelAdmin
 from .resurse import *
 
 
-admin.site.register(InventoryItem)
 admin.site.register(QrCode)
 
 
 
 
-@admin.register(DivisionInfo)
+@admin.register(BaseInfo)
 class BaseAdmin(ImportExportModelAdmin):
-    resource_class = DivisionInfoResource
+    resource_class = BaseInfoResource
+
+@admin.register(InventoryItem)
+class BaseAdmin(ImportExportModelAdmin):
+    resource_class = InventoryItemResource

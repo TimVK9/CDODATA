@@ -1,16 +1,17 @@
+from datetime import timezone
 from django.db import models
 
-class DivisionInfo(models.Model):
+class BaseInfo(models.Model):
     
-    division_name = models.CharField(max_length=64, 
+    base_name = models.CharField(max_length=64, 
                             verbose_name="Название подразделения",
                             unique=True)
     
-    division_addres = models.CharField(max_length=255, 
+    base_addres = models.CharField(max_length=255, 
                                verbose_name="Адрес подразделения")
 
     def __str__(self):
-        return f"{self.division_name} - {self.division_addres}"
+        return f"{self.base_name} - {self.base_addres}"
     
     class Meta:
         verbose_name = "Подразделение"
@@ -19,41 +20,51 @@ class DivisionInfo(models.Model):
     
     
 class InventoryItem(models.Model):
+
+    STATE_CHOICES = [
+        ('Y', 'Введено в эксплуатацию'),
+        ('N', 'Снято с учёта'),
+
+    ]
+
+    state = models.CharField(max_length=2, 
+                             choices=STATE_CHOICES, 
+                             default='Введено в эксплуатацию', 
+                             verbose_name='Состояние учёта')
     
-    name = models.CharField(max_length=128, 
-                            null=False, 
+    objects_name = models.CharField(max_length=128, 
+                            
                             verbose_name="Инвентаризационный объект")
     
     inventory_number = models.CharField(max_length=50, 
-                                        unique=True, null=False, 
+                                        default=000000000000,
+                                        
+
                                         verbose_name="Инвентаризационный номер")
     
-    value = models.DecimalField(max_digits=10, 
-                                decimal_places=2, 
-                                null=False, 
-                                verbose_name="Балансовая стоимость") 
+    value = models.CharField(max_length=500, 
+                                verbose_name="Счёт") 
     
-    base = models.ForeignKey(DivisionInfo, 
+    base = models.ForeignKey(BaseInfo, 
                              on_delete=models.CASCADE, 
-                             null=False, 
                              verbose_name="Подразделение")
     
-    office = models.SmallIntegerField(null=False, 
+    office = models.CharField(null=False, 
+                                      default="0",
                                       verbose_name="Кабинет расположения")
     
-    user_name = models.CharField(max_length=255, 
-                                 default='Ответсвенный за содержание', 
-                                 null=False, 
-                                 verbose_name='Отвественный за содержание')
+    accountable_user = models.CharField(max_length=255, 
+                            verbose_name='Отвественный за содержание')
+    
+    start_data = models.CharField(max_length=64, verbose_name="Дата ввода в эксплуатацию")
     
     def __str__(self):
         return f'''
-                   {self.name};\n
+                   {self.objects_name};\n
                    Инвентаризационный номер - {self.inventory_number};\n
-                   Балансовая стоимость - {self.value};\n
                    База - {self.base};\n
                    Кабинет размещения - {self.office};\n
-                   Ответсвенный за содержание - {self.user_name};\n
+                   Ответсвенный за содержание - {self.accountable_user};\n
                    
                 '''
     class Meta:

@@ -5,9 +5,15 @@ from .models import *
 
 
 
-class DivisionInfoResource(resources.ModelResource):
+class BaseInfoResource(resources.ModelResource):
     class Meta:
-        model = DivisionInfo
+        model = BaseInfo
 
 
 
+
+class InventoryItemResource(resources.ModelResource):
+    class Meta:
+        model = InventoryItem
+        fields = ('id', 'objects_name', 'inventory_number', 'value', 'base', 'office', 'accountable_user')
+        export_order = ('objects_name', 'inventory_number', 'value', 'base', 'office', 'accountable_user')

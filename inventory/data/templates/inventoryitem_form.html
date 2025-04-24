@@ -14,7 +14,7 @@
 
     <div class="mb-3">
         <label for="id_name">Название:</label>
-        {{ form.name|add_class:"form-control" }}
+        {{ form.objects_name|add_class:"form-control" }}
     </div>
 
     <div class="mb-3">
@@ -39,9 +39,15 @@
 
     <div class="mb-3">
         <label for="id_user_name">Ответственный:</label>
-        {{ form.user_name|add_class:"form-control" }}
+        {{ form.accountable_user|add_class:"form-control" }}
     </div>
 
+    <div class="mb-3">
+        <label for="id_user_name">Состояние учёта:</label>
+        {{ form.state|add_class:"form-select" }}
+    
+    </div>
+    
     <button type="submit" class="btn btn-primary">Создать</button>
 
 </form>

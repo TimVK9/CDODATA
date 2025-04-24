@@ -7,9 +7,10 @@ class InventoryItemFilter(django_filters.FilterSet):
     class Meta:
         model = InventoryItem
         fields = [
-                  'name', 
+                  'objects_name', 
                   'inventory_number', 
-                  'user_name', 
+                  'accountable_user', 
                   'base', 
-                  'office'
+                  'office',
+                  'start_data',
                   ]

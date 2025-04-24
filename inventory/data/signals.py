@@ -14,12 +14,11 @@ def create_or_update_qrcode(sender, instance, created, **kwargs):
     # Генерация данных для QR-кода
     
     qr_data = f'''
-    Инвентарный объект -  {instance.name}, \n 
+    Инвентарный объект -  {instance.objects_name}, \n 
     Инвентаризационный номер - {instance.inventory_number},\n 
-    Балансовая стоимость -  {instance.value},\n
     Подразделение -  {instance.base},\n 
     Кабинет - {instance.office},\n
-    Ответсвеннный за содержание - {instance.user_name}
+    Ответсвеннный за содержание - {instance.accountable_user}
     
     '''
     

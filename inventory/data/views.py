@@ -7,7 +7,7 @@ from .filters import InventoryItemFilter
 
 class InventoryItemCreateView(CreateView):
     model = InventoryItem
-    fields = ['name', 'inventory_number', 'value', 'base', 'office', 'user_name']
+    fields = '__all__'
     template_name = 'inventoryitem_form.html'
     success_url = reverse_lazy('inventoryitem_list')
 
