@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+
+{% load form_tags %}
+
+<h1>{% block header %}Создать инвентаризационный объект{% endblock %}</h1>
+
+{% block content %}
+<form method="post">
+
+    {% csrf_token %}
+
+
+ <div class="mb-3">
+        <label for="id_name">Наименование объекта инвентаризации</label>
+        {{ form.objects_name|add_class:"form-control" }}
+    </div>
+
+     <div class="mb-3">
+        <label for="id_inventory_number">Инвентарный номер</label>
+        {{ form.inventory_number|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_value">Счёт</label>
+        {{ form.value|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_base">Подразделение</label>
+        {{ form.base|add_class:"form-select" }}
+    </div>
+
+
+    <div class="mb-3">
+        <label for="id_office">Кабинет расположения</label>
+        {{ form.office|add_class:"form-control" }}
+    </div>
+
+
+    <div class="mb-3">
+        <label for="id_accountable_user">Ответственный за содержание</label>
+        {{ form.accountable_user|add_class:"form-control" }}
+    </div>
+
+
+    <div class="mb-3">
+        <label for="id_start_data">Дата ввода в эксплуатацию</label>
+        {{ form.start_data|add_class:"form-control" }}
+    </div>
+
+
+    <div class="mb-3">
+        <label for="id_state">Состояние учёта</label>
+        {{ form.state|add_class:"form-select" }}
+    </div>
+
+
+
+
+       
+    <button type="submit" class="btn btn-primary">Создать</button>
+    <a href="{% url 'inventoryitem_list' %}" class="btn btn-danger">Отменить</a>
+
+</form>
+
+{% endblock %}
+
+

@@ -1,0 +1,42 @@
+{% load form_tags %}
+
+<form class="filter-form" method="get">
+
+<form method="get">
+
+
+            <div class="mb-3">
+
+                {{ filter.form.objects_name.label_tag }}
+                {{ filter.form.objects_name|add_class:"form-control" }}
+
+                {{ filter.form.inventory_number.label_tag }}
+                {{ filter.form.inventory_number|add_class:"form-control"  }}
+
+                {{ filter.form.base.label_tag }}
+                {{ filter.form.base|add_class:"form-select"  }}
+     
+                {{ filter.form.office.label_tag }}
+                {{ filter.form.office|add_class:"form-control" }}
+
+                {{ filter.form.accountable_user.label_tag }}
+                {{ filter.form.accountable_user|add_class:"form-control"  }}
+ 
+                {{ filter.form.start_data.label_tag }}
+                {{ filter.form.start_data|add_class:"form-control"  }}
+      
+                {{ filter.form.start_data_gte.label_tag }}
+                {{ filter.form.start_data_gte|add_class:"form-control"  }}
+
+                {{ filter.form.start_data_lte.label_tag }}
+                {{ filter.form.start_data_lte|add_class:"form-control"  }}
+            </div><br><hr>
+ 
+            <div class="form-group row-cols-1-md-3">
+                <button type="submit" class="btn btn-primary">Применить фильтры</button>
+                <a href="{% url 'inventoryitem_list' %}" class="btn btn-secondary">Сбросить фильтры</a>
+            </div>
+     
+    </form>
+
+

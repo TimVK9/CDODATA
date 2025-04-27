@@ -6,6 +6,10 @@ import qrcode
 from io import BytesIO
 from django.core.files import File
 import logging
+from django.db.models.signals import pre_save
+
+
+
 
 logger = logging.getLogger(__name__)
     
@@ -18,7 +22,9 @@ def create_or_update_qrcode(sender, instance, created, **kwargs):
     Инвентаризационный номер - {instance.inventory_number},\n 
     Подразделение -  {instance.base},\n 
     Кабинет - {instance.office},\n
-    Ответсвеннный за содержание - {instance.accountable_user}
+    Ответсвеннный за содержание - {instance.accountable_user}, \n 
+    Дата ввода в эксплуатацию - {instance.start_data}, \n 
+    Счёт - {instance.value}
     
     '''
     
@@ -36,7 +42,7 @@ def create_or_update_qrcode(sender, instance, created, **kwargs):
     text_position = (40, qr_img.size[1] - 30)
 
     # Добавление текста на изображение
-    draw.text(text_position, f"Inv. No: {instance.inventory_number}", font=font, fill="black")
+    draw.text(text_position, f"Inv. No: {instance.inventory_number.zfill(12)}", font=font, fill="black")
     
     # Сохранение QR-кода в объект BytesIO
     qr_io = BytesIO()
@@ -51,3 +57,5 @@ def create_or_update_qrcode(sender, instance, created, **kwargs):
         # Обновление существующего объекта QrCode при изменении InventoryItem
         qr_code = QrCode.objects.get(objects_item=instance)
         qr_code.qr.save(f"{instance.inventory_number}_qrcode.png", qr_file)
+        
+        

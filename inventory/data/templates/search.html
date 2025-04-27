@@ -1,0 +1,18 @@
+{% extends 'index.html'%}
+{% load custom_tags %}
+
+
+{% block content %}
+
+{% include 'form_filter.html' %}
+
+
+{% include 'inventory_objects_table.html' %}
+
+
+{% include 'pagination.html' %}
+
+
+
+<br>
+{% endblock %}

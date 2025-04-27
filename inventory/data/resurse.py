@@ -15,5 +15,5 @@ class BaseInfoResource(resources.ModelResource):
 class InventoryItemResource(resources.ModelResource):
     class Meta:
         model = InventoryItem
-        fields = ('id', 'objects_name', 'inventory_number', 'value', 'base', 'office', 'accountable_user')
+        fields = ('id', 'objects_name', 'start_data', 'inventory_number', 'value', 'base', 'office', 'accountable_user')
         export_order = ('objects_name', 'inventory_number', 'value', 'base', 'office', 'accountable_user')

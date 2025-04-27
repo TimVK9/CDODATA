@@ -1,92 +1,29 @@
 {% extends 'index.html'%}
 
-{% load form_tags %}
+{% block title %} Инвентарные данные {% endblock %}
 
-<h1>{% block header %}Инвентаризационные данные{% endblock %}</h1>
+
+<h1>{% block header %}Инвентарные данные{% endblock %}</h1>
 
 {% block content %}
 
-   <form class="filter-form" method="get">
 
-    <div class="mb-3">
-        <label for="id_name">Инвентаризационный объект:</label>
-        {{ filter.form.name|add_class:"form-control" }}
-    </div>
+ 
+{% include 'form_filter.html' %}
+{% include 'pagination.html' %}
+{% include 'inventory_objects_table.html' %}
+{% include 'pagination.html' %} 
+{% include 'modal_no_records.html' %}
+<!-- Модальное окно если нет результатов поиска -->
 
-
-    <div class="mb-3">
-        <label for="id_base">Подразделение:</label>
-        {{ filter.form.base|add_class:"form-select" }}
-    </div>
-
-
-    <div class="mb-3">
-        <label for="id_offise">Номер кабинета:</label>
-        {{ filter.form.office|add_class:"form-control" }}
-    </div>
-
-
-    <div class="mb-3">
-        <label for="id_inventory_number">Инвентаризационный номер:</label>
-        {{ filter.form.inventory_number|add_class:"form-control" }}
-    </div>
-
-
-    <div class="mb-3">
-        <label for="id_user_name">Ответственный за содержаниение:</label>
-        {{ filter.form.user_name|add_class:"form-control" }}
-    </div>
-
-        <button type="submit" class="btn btn-success">Фильтровать</button>
-        <a href="{% url 'inventoryitem_list' %}" class="btn btn-danger">Сбросить фильтры</a>
-    </form>
-
-    <table class="table ttable-light table-hover" >
-        <thead>
-            <tr>
-                <th>Объект инвентаризации</th>
-                <th>Инвентаризационный номер</th>
-                <th>Балансовая стоимость</th>
-                <th>Подразделение</th>
-                <th>Кабинет расположения</th>
-                <th>Ответсвенный за содержание</th>
-                <th>Состояние</th>
-                <th>QR Code</th>
-                <th>Детали</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in inventory_items %}
-                <tr>
-                    <td>{{ item.objects_name }}</td>
-                    <td>{{ item.inventory_number }}</td>
-                    <td>{{ item.value }}</td>
-                    <td>{{ item.base }}</td>
-                    <td>{{ item.office }}</td>
-                    <td>{{ item.accountable_user }}</td>
-                    <td>{{ item.state}} - {{item.start_data }}</td>
-                    <td>
-                        {% if item.qrcode %}
-                        <a href="{{ item.qrcode.qr.url }}" type="button" class="btn btn-success" download="{{ item.inventory_number }}_qrcode.png">Скачать</a>
-                    {% else %}
-                        No QR Code
-                    {% endif %}
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button" onclick="toggleDetails('details-{{ forloop.counter }}')">Подробнее</button>
-                    </td>
-                </tr>
-                <tr id="details-{{ forloop.counter }}" style="display: none;">
-                    <td colspan="8">
-                        <div class="text-bg-dark p-3">
-                            <p><strong>Дополнительная информация:</strong></p>
-                            <p>Здесь может быть любая дополнительная информация об объекте.</p>
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+{% if not page_obj %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var noRecordsModal = new bootstrap.Modal(document.getElementById('noRecordsModal'));
+            noRecordsModal.show();
+        });
+    </script>
+{% endif %}
 
     <script>
           function toggleDetails(id) {

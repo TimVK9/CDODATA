@@ -1,7 +1,9 @@
 from django.urls import path
 from .views import (
-    InventoryItemListView, 
-    InventoryItemCreateView, 
+     
+    InventoryItemCreateView, InventoryList,
+    InventoryItemUpdate, InventoryItemtDelete,
+
 
 )
 from django.urls import path
@@ -10,8 +12,11 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', InventoryItemListView.as_view(), name='inventoryitem_list'),
+    path('', InventoryList.as_view(), name='inventoryitem_list'),
     path('create/', InventoryItemCreateView.as_view(), name='inventoryitem_create'),
+    path('update/<int:pk>', InventoryItemUpdate.as_view(), name='inventoryitem_update'),
+    path('delete/<int:pk>', InventoryItemtDelete.as_view(), name='inventoryitem_delete'), 
+
 ]
 
 if settings.DEBUG:

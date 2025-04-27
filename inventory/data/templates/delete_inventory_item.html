@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="h4 pb-2 mb-4 text-danger border-bottom border-danger">
+  Удаление объекта {{ inventoryitem.objects_name }}
+</div>
+
+
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>Данное действие приведёт к безвозвратному удалению объекта {{ inventoryitem.objects_name }} из базы данных!</p>
+    <p>Вы уверены, что хотите удалить  "{{ inventoryitem.objects_name }}"?</p>
+    <input type="submit" class="btn btn-danger" value="Удалить" />
+    <a href="{% url 'inventoryitem_list' %}" class="btn btn-success">Отменить удаление</a>
+</form>
+
+</div>
+{% endblock content %}
+
+
