@@ -16,7 +16,7 @@
 
             <tr onclick="toggleDetails('details-{{ forloop.counter }}')" class="clickable-row ">
                 <td class='p-3'>{{ item.objects_name }}</td>
-                <td>{{ item.inventory_number|stringformat:"012d"  }}</td>
+                <td>{{ item.inventory_number}}</td>
                 <td>{{ item.value }}</td>
                 <td>{{ item.base }}</td>
                 <td>{{ item.office }}</td>
@@ -37,8 +37,8 @@
                             No QR Code
                         {% endif %}
 
-                        <a href="{% url 'inventoryitem_update' item.pk %}" class="btn btn-warning">Изменить объект</a>
-                        <a href="{% url 'inventoryitem_delete' item.pk %}" class="btn btn-danger">Удалить обект</a>
+                        <a href="{% url 'update' item.pk %}" class="btn btn-warning">Изменить объект</a>
+                        <a href="{% url 'delete' item.pk %}" class="btn btn-danger">Удалить обект</a>
 
                     </div>
                 </td>

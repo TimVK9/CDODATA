@@ -2,8 +2,6 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 
-
-
 class BaseInfo(models.Model):
     base_name = models.CharField(
         max_length=64,
@@ -16,7 +14,7 @@ class BaseInfo(models.Model):
     )
 
     def __str__(self):
-        return f"{self.base_name} - {self.base_addres}"
+        return f"{self.base_name}"
 
     class Meta:
         verbose_name = "Подразделение"
@@ -44,8 +42,8 @@ class InventoryItem(models.Model):
     )
     
     inventory_number = models.CharField(
-    verbose_name="Инвентаризационный номер",
-        help_text="Введите значение до 12 цифр"
+                        verbose_name="Инвентаризационный номер",
+                        help_text="Введите значение до 12 цифр"
     )
     
     value = models.CharField(
@@ -71,10 +69,20 @@ class InventoryItem(models.Model):
     )
     
     start_data = models.DateField(  
-        verbose_name="Дата ввода в эксплуатацию"
+        verbose_name="Дата ввода в эксплуатацию",
+        auto_now=True
     )
+
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name="Объект создан")
+    
+    updated_at = models.DateTimeField(auto_now=True, editable=False,
+                                      verbose_name="Последнее изменение")
+    
+    discription = models.TextField(verbose_name="Описание")
+
     def get_absolute_url(self):
-        return reverse('inventoryitem', kwargs={'pk': self.pk})
+        return reverse('detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         
