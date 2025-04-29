@@ -10,6 +10,9 @@
 
 {% block content %}
 
+
+{% include 'error.html' %}
+
 <form action="" method="post">
 
     {% csrf_token %}
@@ -76,11 +79,6 @@
     <a href="{% url 'detail' object.pk %}" class="btn btn-danger">Отменить</a>
 
 
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        <strong>Ошибка!</strong> Пожалуйста, исправьте {form.errors} в форме.
-    </div>
-{% endif %}
 
 </form>
 

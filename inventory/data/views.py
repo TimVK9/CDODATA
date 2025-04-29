@@ -11,8 +11,10 @@ import pandas as pd
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import BaseInfo, InventoryItem
-from django.urls import reverse_lazy
+from django.shortcuts import render
 
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
 
 class InventoryList(ListView):
     model = InventoryItem
@@ -45,7 +47,7 @@ class InventoryUpdate(UpdateView):
     
 
 
-class InventoryItemtDelete(DeleteView):
+class InventoryItemtDelet(DeleteView):
     model = InventoryItem
     template_name = 'delete_inventory_item.html'
     success_url = '/'    

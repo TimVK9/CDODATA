@@ -11,13 +11,13 @@ from django.db.models.signals import pre_save
 
 
 
-logger = logging.getLogger(__name__)
+
     
 @receiver(post_save, sender=InventoryItem)
 def create_or_update_qrcode(sender, instance, created, **kwargs):
     # Генерация данных для QR-кода
     
-    qr_data = f'https://github.com/TimVK9/D2/blob/main/news/templates/news{instance.get_absolute_url()}'
+    qr_data = f'http://127.0.0.1:8000{instance.get_absolute_url()}'
     print(f'Это даннные {qr_data}')
 
     

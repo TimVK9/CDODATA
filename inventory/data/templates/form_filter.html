@@ -1,42 +1,59 @@
 {% load form_tags %}
 
 <form class="filter-form" method="get">
-
-<form method="get">
-
-
-            <div class="mb-3">
-
-                {{ filter.form.objects_name.label_tag }}
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_objects_name" class="form-label">Название объекта</label>
                 {{ filter.form.objects_name|add_class:"form-control" }}
-
-                {{ filter.form.inventory_number.label_tag }}
-                {{ filter.form.inventory_number|add_class:"form-control"  }}
-
-                {{ filter.form.base.label_tag }}
-                {{ filter.form.base|add_class:"form-select"  }}
-     
-                {{ filter.form.office.label_tag }}
-                {{ filter.form.office|add_class:"form-control" }}
-
-                {{ filter.form.accountable_user.label_tag }}
-                {{ filter.form.accountable_user|add_class:"form-control"  }}
- 
-                {{ filter.form.start_data.label_tag }}
-                {{ filter.form.start_data|add_class:"form-control"  }}
-      
-                {{ filter.form.start_data_gte.label_tag }}
-                {{ filter.form.start_data_gte|add_class:"form-control"  }}
-
-                {{ filter.form.start_data_lte.label_tag }}
-                {{ filter.form.start_data_lte|add_class:"form-control"  }}
-            </div><br><hr>
- 
-            <div class="form-group row-cols-1-md-3">
-                <button type="submit" class="btn btn-primary">Применить фильтры</button>
-                <a href="{% url 'inventoryitem_list' %}" class="btn btn-secondary">Сбросить фильтры</a>
             </div>
-     
-    </form>
-
-
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_inventory_number" class="form-label">Инвентарный номер</label>
+                {{ filter.form.inventory_number|add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_base" class="form-label">База</label>
+                {{ filter.form.base|add_class:"form-select" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_office" class="form-label">Офис</label>
+                {{ filter.form.office|add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_accountable_user" class="form-label">Ответственный пользователь</label>
+                {{ filter.form.accountable_user|add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_start_data" class="form-label">Дата ввода</label>
+                {{ filter.form.start_data|add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_start_data_gte" class="form-label">Дата ввода от</label>
+                {{ filter.form.start_data_gte|add_class:"form-control" }}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="id_start_data_lte" class="form-label">Дата ввода до</label>
+                {{ filter.form.start_data_lte|add_class:"form-control" }}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-end mt-3">
+        <button type="submit" class="btn btn-primary me-2">Применить фильтры</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Сбросить фильтры</a>
+    </div>
+</form> 

@@ -5,6 +5,8 @@
 <h1>{% block header %}Создать инвентаризационный объект{% endblock %}</h1>
 
 {% block content %}
+
+{% include 'error.html' %}
 <form method="post">
 
     {% csrf_token %}
@@ -67,6 +69,7 @@
 
 </form>
 
+{% include 'error.html' %}
 {% endblock %}
 
 

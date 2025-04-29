@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
+from django.utils import timezone
+from .validate import *
 
 class BaseInfo(models.Model):
     base_name = models.CharField(
@@ -70,7 +72,7 @@ class InventoryItem(models.Model):
     
     start_data = models.DateField(  
         verbose_name="Дата ввода в эксплуатацию",
-        auto_now=True
+       
     )
 
     created_at = models.DateTimeField(auto_now_add=True,
@@ -79,10 +81,33 @@ class InventoryItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True, editable=False,
                                       verbose_name="Последнее изменение")
     
-    discription = models.TextField(verbose_name="Описание")
+    discription = models.TextField(verbose_name="Описание", 
+                                   validators=[validate_description_length],
+                                   default='''Здесь должно быть описание объекта, позволяющее лего его идентифицировать
+                                   Здесь могут быть его характеристики, цвет, объем системные данные и т.п.'''
+                                   )
+    current_duration = models.CharField(max_length=5, 
+                                        blank=True,
+                                        verbose_name="Срок эксплуатации",)
+
+
+
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
+    
+    def calculate_days_in_service(self):
+
+        if self.state == 'Введено в эксплуатацию':
+
+            delta = timezone.now().date() - self.start_data
+  
+            self.current_duration = delta
+
+            self.save()
+            return f'{delta.days}'
+        return f'Выведен из эксплуатации'
+
 
     def __str__(self):
         

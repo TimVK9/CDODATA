@@ -1,0 +1,26 @@
+{% if form.errors %}
+<div class="alert alert-danger mt-5">
+    <h5 class="alert-heading">
+        <i class="fas fa-exclamation-triangle"></i> 
+        Ошибки при заполнении формы:
+    </h5>
+    <ul class="mb-0">
+        {% for field in form %}
+            {% if field.errors %}
+                <li class="text-danger">
+                    <strong>{{ field.label }}</strong>:
+                    <ul>
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% for error in form.non_field_errors %}
+            <li class="text-danger">{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

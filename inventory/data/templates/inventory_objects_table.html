@@ -1,74 +1,88 @@
+{% load static %}
 
-<table class="table ttable-light table-hover mt-5">
-    <thead>
-        <tr>
-            <th>Объект инвентаризации</th>
-            <th>Инвентарный номер</th>
-            <th>Счёт</th>
-            <th>Подразделение</th>
-            <th>Кабинет</th>
-            <th>Ответсвенный</th>
-            <th>Состояние</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in inventory_list %}
 
-            <tr onclick="toggleDetails('details-{{ forloop.counter }}')" class="clickable-row ">
-                <td class='p-3'>{{ item.objects_name }}</td>
-                <td>{{ item.inventory_number}}</td>
-                <td>{{ item.value }}</td>
-                <td>{{ item.base }}</td>
-                <td>{{ item.office }}</td>
-                <td>{{ item.accountable_user }}</td>
-                <td>{{ item.state }} - {{ item.start_data }}</td>
-                
+
+<div class="table-responsive">
+    <table class="table table-light table-hover mt-5">
+        <thead>
+            <tr class="align-baseline">
+                <th>Объект инвентаризации</th>
+                <th>Инвентарный номер</th>
+                <th>Счёт</th>
+                <th>Подразделение</th>
+                <th>Кабинет</th>
+                <th>Ответственный</th>
+                <th>Состояние</th>
             </tr>
-
-            <tr id="details-{{ forloop.counter }}" style="display: none;">
-                <td colspan="8">
-                    <div class="text-bg-dark p-3">
-                        
-                        {% if item.qrcode %}
-                        
-                            <a href="{{ item.qrcode.qr.url }}" type="button" class="btn btn-success" download="{{ item.inventory_number }}_qrcode.png">Скачать QR</a>
-                                                        
+        </thead>
+        <tbody>
+            {% if inventory_list %}
+                {% for item in inventory_list %}
+                    <tr onclick="toggleDetails('details-{{ forloop.counter }}')" class="clickable-row">
+                        <td class="p-3">{{ item.objects_name }}</td>
+                        <td>{{ item.inventory_number }}</td>
+                        <td>{{ item.value }}</td>
+                        <td>{{ item.base }}</td>
+                        <td>{{ item.office }}</td>
+                        <td>{{ item.accountable_user }}</td>
+                        {% if item.state == "Введено в эксплуатацию" %}
+                            <td class="table-success">{{ item.state }} - {{ item.start_data }}</td>
                         {% else %}
-                            No QR Code
+                            <td class="table-danger">{{ item.state }}</td>
                         {% endif %}
-
-                        <a href="{% url 'update' item.pk %}" class="btn btn-warning">Изменить объект</a>
-                        <a href="{% url 'delete' item.pk %}" class="btn btn-danger">Удалить обект</a>
-
-                    </div>
-                </td>
-            </tr>
-            
-        {% endfor %}
-
-    </tbody>
-</table>
-
+                    </tr>
+                    <tr id="details-{{ forloop.counter }}" style="display: none">
+                        <td colspan="7">
+                            <div class="details-wrapper">
+                                <p>
+                                    <strong>В эксплуатации:</strong> <em>{{ item.calculate_days_in_service }} дней</em>
+                                </p>
+                                <p>
+                                    <strong>Описание:</strong> <em>{{ item.discription }}</em>
+                                </p>
+                                <div class="btn-group">
+                                    {% if item.qrcode %}
+                                        <a href="{{ item.qrcode.qr.url }}" class="btn btn-success" download="{{ item.inventory_number }}_qrcode.png">Скачать QR</a>
+                                    {% else %}
+                                        <span class="text-muted">Нет QR-кода</span>
+                                    {% endif %}
+                                    <a href="{% url 'update' item.pk %}" class="btn btn-warning">Изменить объект</a>
+                                    <a href="{% url 'delete' item.pk %}" class="btn btn-danger">Удалить объект</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">Данные не найдены</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
 <style>
     .clickable-row {
         cursor: pointer;
     }
+    
+    .details-wrapper {
+        padding: 15px;
+        background: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+    }
+    
+    .btn-group {
+        margin-top: 10px;
+    }
 </style>
 
 <script>
     function toggleDetails(id) {
-        var detailsRow = document.getElementById(id);
-        if (detailsRow.style.display === "none") {
-            detailsRow.style.display = "table-row";
-        } else {
-            detailsRow.style.display = "none";
-        }
+        const detailsRow = document.getElementById(id);
+        if (!detailsRow) return;
+        
+        detailsRow.style.display = detailsRow.style.display === 'none' ? 'table-row' : 'none';
     }
-
-
-
 </script>
- 
-
-
