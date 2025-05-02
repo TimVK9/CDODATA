@@ -295,3 +295,448 @@ param_replace
 static
 tz
 "GET /items/create/ HTTP/1.1" 500 209276
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django_filters/views.py", line 85, in get
+    context = self.get_context_data(
+        filter=self.filterset, object_list=self.object_list
+    )
+  File "/Users/tim/Desktop/CDODATA/inventory/data/views.py", line 100, in get_context_data
+    context = super().get_context_data(**kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/list.py", line 128, in get_context_data
+    paginator, page, queryset, is_paginated = self.paginate_queryset(
+                                              ~~~~~~~~~~~~~~~~~~~~~~^
+        queryset, page_size
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/list.py", line 73, in paginate_queryset
+    page = paginator.page(page_number)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/paginator.py", line 89, in page
+    number = self.validate_number(number)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/paginator.py", line 70, in validate_number
+    if number > self.num_pages:
+                ^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/paginator.py", line 116, in num_pages
+    if self.count == 0 and not self.allow_empty_first_page:
+       ^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ~~~~~~~~~^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/paginator.py", line 110, in count
+    return c()
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1609, in execute_sql
+    sql, params = self.as_sql()
+                  ~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 790, in as_sql
+    from_, f_params = self.get_from_clause()
+                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1157, in get_from_clause
+    clause_sql, clause_params = self.compile(from_clause)
+                                ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 576, in compile
+    sql, params = node.as_sql(self, self.connection)
+                  ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/datastructures.py", line 220, in as_sql
+    base_sql = compiler.quote_name_unless_alias(self.table_name)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 567, in quote_name_unless_alias
+    r = self.connection.ops.quote_name(name)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/dummy/base.py", line 20, in complain
+    raise ImproperlyConfigured(
+    ...<3 lines>...
+    )
+django.core.exceptions.ImproperlyConfigured: settings.DATABASES is improperly configured. Please supply the ENGINE value. Check settings documentation for more details.
+"GET / HTTP/1.1" 500 160492
+Internal Server Error: /items/create/
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/defaulttags.py", line 1035, in find_library
+    return parser.libraries[name]
+           ~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'widget_tweaks'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/loader.py", line 42, in select_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/defaulttags.py", line 1097, in load
+    lib = find_library(parser, name)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/template/defaulttags.py", line 1037, in find_library
+    raise TemplateSyntaxError(
+    ...<5 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: 'widget_tweaks' is not a registered tag library. Must be one of:
+admin_list
+admin_modify
+admin_urls
+cache
+custom_tags
+form_tags
+i18n
+import_export_tags
+l10n
+log
+param_replace
+static
+tz
+"GET /items/create/ HTTP/1.1" 500 209041
+Internal Server Error: /items/create/
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.CheckViolation: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1446, Введено в эксплуатацию, 7777, 000000000008, 00.00.00.00, 0, 333, 2025-05-07, 2025-05-02 23:34:19.667384+00, 2025-05-02 23:34:19.667392+00, Здесь должно быть описание объекта..., -5, 5).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 133, in form_valid
+    self.object = form.save()
+                  ~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/forms/models.py", line 554, in save
+    self.instance.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/inventory/data/models.py", line 150, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/query.py", line 1854, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1881, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1446, Введено в эксплуатацию, 7777, 000000000008, 00.00.00.00, 0, 333, 2025-05-07, 2025-05-02 23:34:19.667384+00, 2025-05-02 23:34:19.667392+00, Здесь должно быть описание объекта..., -5, 5).
+
+"POST /items/create/ HTTP/1.1" 500 180220
+Internal Server Error: /items/create/
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.CheckViolation: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1447, Введено в эксплуатацию, 7777, 000000000008, 00.00.00.00, 0, 333, 2025-05-07, 2025-05-02 23:37:30.283185+00, 2025-05-02 23:37:30.283192+00, Здесь должно быть описание объекта..., -5, 5).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 133, in form_valid
+    self.object = form.save()
+                  ~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/forms/models.py", line 554, in save
+    self.instance.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/inventory/data/models.py", line 151, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/query.py", line 1854, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1881, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1447, Введено в эксплуатацию, 7777, 000000000008, 00.00.00.00, 0, 333, 2025-05-07, 2025-05-02 23:37:30.283185+00, 2025-05-02 23:37:30.283192+00, Здесь должно быть описание объекта..., -5, 5).
+
+"POST /items/create/ HTTP/1.1" 500 180220
+Internal Server Error: /items/create/
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+psycopg2.errors.CheckViolation: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1448, Введено в эксплуатацию, 7777, 000000000009, 00.00.00.00, 0, Аракелян, 2025-06-06, 2025-05-02 23:37:56.480083+00, 2025-05-02 23:37:56.48009+00, Здесь должно быть описание объекта..., -35, 6).
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 182, in post
+    return super().post(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/views/generic/edit.py", line 133, in form_valid
+    self.object = form.save()
+                  ~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/forms/models.py", line 554, in save
+    self.instance.save()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "/Users/tim/Desktop/CDODATA/inventory/data/models.py", line 151, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1169, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/base.py", line 1210, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/query.py", line 1854, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1881, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/Users/tim/Desktop/CDODATA/myenv/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+django.db.utils.IntegrityError: new row for relation "data_inventoryitem" violates check constraint "data_inventoryitem_current_duration_check"
+DETAIL:  Failing row contains (1448, Введено в эксплуатацию, 7777, 000000000009, 00.00.00.00, 0, Аракелян, 2025-06-06, 2025-05-02 23:37:56.480083+00, 2025-05-02 23:37:56.48009+00, Здесь должно быть описание объекта..., -35, 6).
+
+"POST /items/create/ HTTP/1.1" 500 180274

@@ -20,12 +20,12 @@ LOGIN_URL = 'login'
 # Безопасность
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key')  
 DEBUG = True  
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'yourdomain.com,localhost').split(',')
+ALLOWED_HOSTS = ['*']
 
 # Настройки базы данных
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'import_export',
+    'widget_tweaks',
     
     
 ]

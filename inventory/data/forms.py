@@ -9,6 +9,9 @@ class LoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'class': 'form-control'})
         self.fields['password'].widget.attrs.update({'class': 'form-control'})
+
+
+
 class BaseInfoForm(forms.ModelForm):
     class Meta:
         model = BaseInfo
@@ -23,10 +26,10 @@ class InventoryItemForm(forms.ModelForm):
         fields = '__all__'
         
         widgets = {
-            'date_field': DateInput(
-                attrs={'type': 'date', 'class': 'form-control form-control-sm',
+            'start_date': DateInput(
+                attrs={'type': 'date', 'class': 'form-select ',
             },
-                format='%d-%m-%Y',
+                format='%dd-%m-%Y',
                 
             ),
         }

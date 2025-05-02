@@ -3,10 +3,10 @@ from .var import *
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.core.validators import MinLengthValidator
-from .validate import validate_number_int, validate_description_length
-import logging
-from django.db import transaction
+from django.core.validators import MinValueValidator
+from .validate import *
+
+
 class BaseInfo(models.Model):
     """Модель для хранения информации о подразделениях"""
     base_name = models.CharField(
@@ -60,10 +60,15 @@ class InventoryItem(models.Model):
     )
     
     inventory_number = models.CharField(
-        max_length=12,
+        max_length=15,
         verbose_name="Инвентаризационный номер",
         validators=[validate_number_int],
-        unique=True
+        unique=True,
+        
+        error_messages={
+            'unique': "Запись с таким инвентаризационным номером уже существует.",
+            ' max_length': "Многовато будет!!!"
+        }
     )
     
     value = models.CharField(
@@ -73,8 +78,7 @@ class InventoryItem(models.Model):
         verbose_name="Счет актива"
     )
 
-    
-    
+        
     base = models.ForeignKey(
         BaseInfo,
         on_delete=models.PROTECT,
@@ -96,6 +100,7 @@ class InventoryItem(models.Model):
     )
     
     start_date = models.DateField(
+        validators=[validate_date_not_in_future],
         verbose_name="Дата ввода в эксплуатацию",
        
     )
