@@ -1,66 +1,109 @@
-from django_filters import rest_framework as filters
-from django_filters import DateFilter, FilterSet
+import django_filters
 from django import forms
-from .models import BaseInfo, InventoryItem
+from .models import InventoryItem, BaseInfo
+from .var import ACCOUNT_CHOICES
 
 
-class InventoryItemFilter(filters.FilterSet):
-    """
-    Фильтр для инвентаризационных объектов
-    """
-
-    # Фильтрация по инвентаризационному объекту с поиском по подстроке
-    objects_name = filters.CharFilter(
-        field_name='objects_name',
+class InventoryItemFilter(django_filters.FilterSet):
+    """Фильтр для инвентарных объектов с улучшенным UI"""
+    
+    # Основные фильтры
+    objects_name = django_filters.CharFilter(
         lookup_expr='icontains',
-        label=''
+        label='Название объекта',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control form-control-sm',
+            'placeholder': 'Введите название...'
+        })
     )
-
-    # Фильтрация по инвентаризационному номеру
-    inventory_number = filters.CharFilter(
+    
+    inventory_number = django_filters.CharFilter(
         lookup_expr='icontains',
-        label=''
+        label='Инвентарный номер',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control form-control-sm',
+            'placeholder': 'Введите номер...'
+        })
     )
-
-    # Фильтрация по подразделению
-    base = filters.ModelChoiceFilter(
-        queryset=BaseInfo.objects.all(),
-        label=''
+    
+    base = django_filters.ModelChoiceFilter(
+        queryset=BaseInfo.objects.all().order_by('base_name'),
+        label='Подразделение',
+        widget=forms.Select(attrs={
+            'class': 'form-select form-select-sm'
+        })
     )
-
-    # Фильтрация по кабинету с числовым диапазоном
-    office = filters.NumberFilter(
-        label=''
+    
+    state = django_filters.ChoiceFilter(
+        choices=InventoryItem.STATE_CHOICES,
+        label='Состояние',
+        widget=forms.Select(attrs={
+            'class': 'form-select form-select-sm'
+        })
     )
-
-    # Фильтрация по ответственному лицу
-    accountable_user = filters.CharFilter(
-        field_name='accountable_user',
+    
+    value = django_filters.ChoiceFilter(
         lookup_expr='icontains',
-        label=''
+        choices=InventoryItem.value,
+        label='Счет актива',
+        widget=forms.Select(attrs={
+            'class': 'form-select form-select-sm'
+        })
     )
-
-    # Фильтрация по дате ввода в эксплуатацию
-    start_data = filters.DateFilter(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        label=''
+    
+    office = django_filters.CharFilter(
+        lookup_expr='icontains',
+        label='Кабинет',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control form-control-sm',
+            'placeholder': 'Номер кабинета...'
+        })
     )
-
-    # Фильтрация по диапазону дат
-    start_data_gte = filters.DateFilter(
-        field_name='start_data',
-        lookup_expr='gte',
-        help_text="Дата ввода от",
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        label=''
+    
+    accountable_user = django_filters.CharFilter(
+        lookup_expr='icontains',
+        label='Ответственный',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control form-control-sm',
+            'placeholder': 'ФИО ответственного...'
+        })
     )
-
-    start_data_lte = filters.DateFilter(
-        field_name='start_data',
+    
+    # Фильтры по дате
+    start_date = django_filters.DateFilter(
+        field_name='start_date',
+        lookup_expr='exact',
+        label='Дата ввода',
+        widget=forms.DateInput(attrs={
+            'class': 'form-control form-control-sm',
+            'type': 'date'
+        })
+    )
+    
+    start_date_before = django_filters.DateFilter(
+        field_name='start_date',
         lookup_expr='lte',
-        help_text="Дата ввода до",
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        label=''
+        label='Дата ввода до',
+        widget=forms.DateInput(attrs={
+            'class': 'form-control form-control-sm',
+            'type': 'date'
+        })
+    )
+    
+    start_date_after = django_filters.DateFilter(
+        field_name='start_date',
+        lookup_expr='gte',
+        label='Дата ввода после',
+        widget=forms.DateInput(attrs={
+            'class': 'form-control form-control-sm',
+            'type': 'date'
+        })
+    )
+    
+    value = django_filters.ChoiceFilter(
+        choices=ACCOUNT_CHOICES,
+        label='Счёт актива',
+
     )
 
     class Meta:
@@ -69,21 +112,24 @@ class InventoryItemFilter(filters.FilterSet):
             'objects_name',
             'inventory_number',
             'base',
+            'state',
             'office',
             'accountable_user',
-            'start_data',
-            'start_data_gte',
-            'start_data_lte'
+            'start_date',
+            'value'
         ]
-        
-        # Добавляем упорядочивание полей для корректного отображения в форме
-        ordering = [
-            'objects_name',
-            'inventory_number',
-            'base',
-            'office',
-            'accountable_user',
-            'start_data',
-            'start_data_gte',
-            'start_data_lte'
-        ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Установка placeholder'ов для всех текстовых полей
+        for field_name, field in self.filters.items():
+            if isinstance(field, django_filters.CharFilter):
+                if 'placeholder' not in field.field.widget.attrs:
+                    field.field.widget.attrs['placeholder'] = f'Фильтр по {field.label.lower()}...'
+            
+            # Добавление классов Bootstrap по умолчанию
+            if 'class' not in field.field.widget.attrs:
+                if isinstance(field.field.widget, forms.Select):
+                    field.field.widget.attrs['class'] = 'form-select form-select-sm'
+                else:
+                    field.field.widget.attrs['class'] = 'form-control form-control-sm'

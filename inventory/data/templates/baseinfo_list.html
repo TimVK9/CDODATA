@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}Список подразделений{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Список подразделений</h1>
+    
+    <!-- Кнопка добавления нового подразделения -->
+    <div class="mb-4">
+        <a href="{% url 'baseinfo-create' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Добавить подразделение
+        </a>
+    </div>
+    
+    <!-- Карточки подразделений -->
+    <div class="row">
+        {% for base in bases %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <!-- Вся карточка - ссылка на детали -->
+
+
+                <a href="{% url 'baseinfo-detail' base.pk %}" class="text-decoration-none text-dark">
+    <div class="card-img-container" style="height: 200px; overflow: hidden;">
+        
+        {% if base.logo %}
+            <img src="{{ base.logo.url }}" 
+                 class="card-img-top h-100 w-100" 
+                 alt="{{ base.base_name }}"
+                 style="object-fit: cover;">
+        {% else %}
+            <div class="h-100 w-100 d-flex align-items-center justify-content-center bg-light">
+                <i class="fas fa-building fa-4x text-secondary"></i>
+            </div>
+        {% endif %}
+    </div>
+</a>
+       <div class="card-body">
+                        <h5 class="card-title">{{ base.base_name }}</h5>
+                        <p class="card-text">
+                            <i class="fas fa-map-marker-alt text-muted"></i> 
+                            <span class="text-muted">{{ base.base_address }}</span>
+                        </p>
+                    </div>
+
+
+
+                <!-- Кнопки действий (отдельно от основной ссылки) -->
+                <div class="card-footer bg-white border-top-0">
+                    <div class="d-flex justify-content-between">
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'baseinfo-update' base.pk %}" class="btn btn-outline-warning" title="Редактировать">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                        </div>
+                        <a href="{% url 'baseinfo-detail' base.pk %}" class="btn btn-sm btn-outline-info" title="Подробнее">
+                            Подробнее <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Нет подразделений для отображения
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Пагинация -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+<style>
+    .card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .card-img-container {
+        position: relative;
+    }
+    .card-img-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+    }
+</style>
+{% endblock %}

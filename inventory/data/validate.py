@@ -1,5 +1,10 @@
 from django.core.exceptions import ValidationError
 
 def validate_description_length(value):
-    if len(value) < 100:
+    if len(value) < 10:
         raise ValidationError('Описание не должно быть короче 10 символов')
+
+
+def validate_number_int(value):
+    if not value.isdigit():
+        raise ValidationError('Инвентарный номер должен состоять из цифрр')

@@ -1,41 +1,35 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
-
 from .views import (
-    CreateView,
-    InventoryList,
-    InventoryUpdate,
-    InventoryItemtDelet,  
-    import_excel,
-    ObjectDetail,
+    BaseInfoListView, BaseInfoDetailView, BaseInfoCreateView,
+    BaseInfoUpdateView, BaseInfoDeleteView,
+    InventoryItemListView, InventoryItemDetailView,
+    InventoryItemCreateView, InventoryItemUpdateView,
+    InventoryItemDeleteView, import_inventory,
+    download_template, ExportBaseInfoExcel
 
-
-
+    
 )
 
-
-
-
 urlpatterns = [
-    path('', InventoryList.as_view(), name='home'),
-    path('create/', CreateView.as_view(), name='create'),
-    path('update/<int:pk>/', InventoryUpdate.as_view(), name='update'),  
-    path('delete/<int:pk>/', InventoryItemtDelet.as_view(), name='delete'),  
-    path('import/', import_excel, name='import_excel'),
-    path('detail/<int:pk>/', ObjectDetail.as_view(), name='detail')  
+    # BaseInfo URLs
+    path('bases/', BaseInfoListView.as_view(), name='baseinfo-list'),
+    path('bases/<int:pk>/', BaseInfoDetailView.as_view(), name='baseinfo-detail'),
+    path('bases/create/', BaseInfoCreateView.as_view(), name='baseinfo-create'),
+    path('bases/<int:pk>/update/', BaseInfoUpdateView.as_view(), name='baseinfo-update'),
+    path('bases/<int:pk>/delete/', BaseInfoDeleteView.as_view(), name='baseinfo-delete'),
+    
+    # InventoryItem URLs
+    path('', InventoryItemListView.as_view(), name='inventoryitem-list'),
+    path('items/<int:pk>/', InventoryItemDetailView.as_view(), name='inventoryitem-detail'),
+    path('items/create/', InventoryItemCreateView.as_view(), name='inventoryitem-create'),
+    path('items/<int:pk>/update/', InventoryItemUpdateView.as_view(), name='inventoryitem-update'),
+    path('items/<int:pk>/delete/', InventoryItemDeleteView.as_view(), name='inventoryitem-delete'),
+    
+    path('import-inventory/', import_inventory, name='import-inventory'),
+    path('download-template/', download_template, name='download_template'),
+    
+    path('baseinfo/<int:pk>/export-excel/', ExportBaseInfoExcel.as_view(), name='export-baseinfo-excel'),
+
+
+   
 ]
-
-
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT
-    )
-
-
-
-# 2. Используйте более понятные названия классов (например, InventoryItemDelete вместо InventoryItemtDelete)
-# 3. Группируйте импорты по категориям (встроенные модули, сторонние библиотеки, локальные импорты)
-# 4. Добавьте документацию к паттернам URL
-# 5. Рассмотрите возможность использования include() для модульности

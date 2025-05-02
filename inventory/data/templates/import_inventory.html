@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0"><i class="fas fa-file-import mr-2"></i>Импорт инвентаря из Excel</h2>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h4 class="alert-heading"><i class="fas fa-info-circle mr-2"></i>Инструкция:</h4>
+                <p>Для импорта данных скачайте шаблон, заполните его и загрузите обратно в систему.</p>
+                <hr>
+                <p class="mb-0">Обязательные поля помечены звездочкой (*) в шаблоне.</p>
+            </div>
+
+            <div class="text-center mb-4">
+                <a href="{% url 'download_template' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-file-excel mr-2"></i>Скачать шаблон Excel
+                </a>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="mt-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="excel_file" class="font-weight-bold">Выберите файл для импорта:</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="excel_file" id="excel_file" accept=".xlsx,.xls" required>
+                        <label class="custom-file-label" for="excel_file" data-browse="Обзор">Выберите файл Excel (.xlsx, .xls)</label>
+                    </div>
+                    <small class="form-text text-muted">
+                        Максимальный размер файла: 5MB. Поддерживаются форматы .xlsx и .xls
+                    </small>
+                </div>
+                
+                <div class="form-group text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-upload mr-2"></i>Начать импорт
+                    </button>
+                    <a href="{% url 'inventoryitem-list' %}" class="btn btn-outline-secondary btn-lg ml-2">
+                        <i class="fas fa-times mr-2"></i>Отмена
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript для отображения имени выбранного файла -->
+<script>
+document.querySelector('.custom-file-input').addEventListener('change', function(e) {
+    var fileName = document.getElementById("excel_file").files[0].name;
+    var nextSibling = e.target.nextElementSibling;
+    nextSibling.innerText = fileName;
+});
+</script>
+
+<style>
+.card {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+.custom-file-label::after {
+    content: "Обзор";
+}
+</style>
+{% endblock %}

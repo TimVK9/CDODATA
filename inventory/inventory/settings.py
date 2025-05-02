@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 
-
+BASE_URL = 'http://127.0.0.1:8000'
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = '/media/'
@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'import_export',
+    'widget_tweaks',
     
     
 ]
