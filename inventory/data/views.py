@@ -23,6 +23,7 @@ from django.http import HttpResponse
 from openpyxl import Workbook
 from openpyxl.drawing.image import Image
 import io
+import pandas as pd
 from django.core.files.base import ContentFile
 from django.urls import reverse
 
@@ -135,35 +136,44 @@ class InventoryItemDeleteView(DeleteView):
 
     
 def import_inventory(request):
-    if request.method == 'POST' and request.FILES.get('excel_file'):
-        excel_file = request.FILES['excel_file']
+    if request.method == 'POST':
+        excel_file = request.FILES.get('excel_file')
+        if not excel_file:
+            messages.error(request, "Файл не был загружен")
+            return redirect('import-inventory')
         
-        # Сохраняем временный файл
-        temp_path = os.path.join(settings.MEDIA_ROOT, 'temp', excel_file.name)
-        os.makedirs(os.path.dirname(temp_path), exist_ok=True)
-        
-        with open(temp_path, 'wb+') as destination:
-            for chunk in excel_file.chunks():
-                destination.write(chunk)
-        
-        # Импортируем данные
-        result = import_inventory_from_excel(temp_path)
-        
-        # Удаляем временный файл
-        os.remove(temp_path)
-        
-        # Формируем сообщение для пользователя
-        message = (
-            f"Импорт завершен. Обработано записей: {result['total']}. "
-            f"Создано: {result['created']}, обновлено: {result['updated']}."
-        )
-        
-        if result['errors']:
-            message += f" Ошибок: {len(result['errors'])}."
-            messages.error(request, "\n".join(result['errors']))
-        
-        messages.success(request, message)
-        return redirect('inventoryitem-list') 
+        try:
+            # Сохраняем временный файл
+            temp_path = os.path.join(settings.MEDIA_ROOT, 'temp', excel_file.name)
+            os.makedirs(os.path.dirname(temp_path), exist_ok=True)
+            
+            with open(temp_path, 'wb+') as destination:
+                for chunk in excel_file.chunks():
+                    destination.write(chunk)
+            
+            # Импортируем данные
+            result = import_inventory_from_excel(temp_path)
+            
+            # Удаляем временный файл
+            os.remove(temp_path)
+            
+            # Формируем сообщение о результате
+            success_msg = (
+                f"Импорт завершен. Добавлено: {result['created']}, "
+                f"Обновлено: {result['updated']}, "
+                f"Всего обработано: {result['total']}"
+            )
+            messages.success(request, success_msg)
+            
+            if result['errors']:
+                for error in result['errors']:
+                    messages.warning(request, error)
+            
+            return redirect('inventoryitem-list')
+            
+        except Exception as e:
+            messages.error(request, f"Ошибка при обработке файла: {str(e)}")
+            return redirect('import-inventory')
     
     return render(request, 'import_inventory.html')
 

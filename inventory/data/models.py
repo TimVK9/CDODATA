@@ -67,11 +67,13 @@ class InventoryItem(models.Model):
     )
     
     value = models.CharField(
-        max_length=20,
         choices=ACCOUNT_CHOICES,
-        verbose_name="Счёт актива",
-
+        max_length=20,  
+        default='00.00.00.00',
+        verbose_name="Счет актива"
     )
+
+    
     
     base = models.ForeignKey(
         BaseInfo,

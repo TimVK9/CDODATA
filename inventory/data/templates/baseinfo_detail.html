@@ -159,16 +159,12 @@
                 <a href="{% url 'baseinfo-list' %}" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Назад к списку
                 </a>
-                <a href="{% url 'baseinfo-update' base.pk %}" class="btn btn-warning mx-2">
-                    <i class="fas fa-edit"></i> Редактировать
 
-                    <a href="{% url 'export-baseinfo-excel' base.pk %}" class="btn btn-success btn-sm" title="Скачать в Excel">
+
+                    <a href="{% url 'export-baseinfo-excel' base.pk %}" class="btn btn-success" title="Скачать в Excel">
                     <i class="fas fa-file-excel"></i> Скачать Excel
                 </a>
-                </a>
-                <a href="{% url 'baseinfo-delete' base.pk %}" class="btn btn-danger">
-                    <i class="fas fa-trash"></i> Удалить
-                </a>
+
             </div>
         </div>
     </div>
