@@ -24,18 +24,19 @@ class InventoryItemForm(forms.ModelForm):
     class Meta:
         model = InventoryItem
         fields = '__all__'
-        
         widgets = {
-            'start_date': DateInput(
-                attrs={'type': 'date', 'class': 'form-select ',
-            },
-                format='%dd-%m-%Y',
-                
+            'start_date': forms.DateInput(
+                attrs={
+                    'type': 'date',
+                    'class': 'form-control datepicker'
+                },
+                format='%Y-%m-%d'  # Формат, который понимает HTML5 date input
             ),
         }
-        
-        def __init__(self, *args, **kwargs):
-                super().__init__(*args, **kwargs)
-                if 'date_field' in self.fields:
-                    self.fields['date_field'].input_formats = ['%d-%m-%Y'] 
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Устанавливаем формат даты для поля
+        if 'start_date' in self.fields:
+            self.fields['start_date'].input_formats = ['%Y-%m-%d']
     
